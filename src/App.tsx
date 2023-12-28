@@ -1,13 +1,24 @@
 import "./App.css";
 import { useState } from "react";
-import Note from "./components/Note";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./config/firebase";
+import NoteContainer from "./components/NoteContainer";
 import GoogleButton from "react-google-button";
-
-
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 function App() {
   const [open, setOpen] = useState<boolean>(false);
-  const [note, setNote] = useState("")
+  const [user] = useAuthState(auth);
+
+  const signIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      console.log(user)
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <main>
       <section className="left-side">
@@ -30,21 +41,11 @@ function App() {
           </ul>
         </div>
       </section>
-      <section className="right-side">
-        <div className="txt-btn-wrapper">
-          <div className="write-container">
-            <textarea placeholder="Write your note here" rows={5} value={note} onChange={(e) => setNote(e.target.value)} />
-            <div className="btn-cont">
-              <button>Submit</button>
-            </div>
-          </div>
-          <div className="signIn-container">
-            <GoogleButton />
-          </div>
-        </div>
-        <h1>Notes</h1>
-        <Note />
-      </section>
+      {user ? (
+        <NoteContainer />
+      ) : (
+        <GoogleButton className="signIn-container" onClick={signIn} />
+      )}
     </main>
   );
 }
