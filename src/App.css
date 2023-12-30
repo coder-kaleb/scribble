@@ -156,6 +156,7 @@ main section {
   border-radius: 5px;
   cursor: pointer;
   font-size: .9rem;
+  transition: all .5s;
 }
 
 
@@ -187,6 +188,13 @@ main section {
 
 
 
+/* ----------NOTE CONTAINER */
+.note-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 /* ----------NOTE DIV------ */
 .note {
   background-color: var(--orange-color);
@@ -196,6 +204,7 @@ main section {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  transition: all .5s;
 }
 .text {
   font-size: 1.1rem;
