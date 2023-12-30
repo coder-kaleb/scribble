@@ -15,7 +15,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-const NoteContainer = () => {
+const NoteContainer = ({ color }) => {
   const [user] = useAuthState(auth);
   const [fetchedNote, setFetchedNote] = useState<Document[]>([]);
   const [note, setNote] = useState("");
@@ -76,6 +76,11 @@ const NoteContainer = () => {
     const ref = doc(db, "note", docId);
     await deleteDoc(ref);
   };
+
+  // handle logout
+  const handleLogOut = async () => {
+    await signOut(auth);
+  };
   return (
     <section className="right-side">
       <div className="txt-btn-wrapper">
@@ -92,11 +97,13 @@ const NoteContainer = () => {
         </div>
         <div className="sign-out-cont">
           {user ? (
-            <img src={`${user.photoURL}`} alt="phot-url" className="photo" />
+            <div className="img-btn">
+              <img src={`${user.photoURL}`} alt="phot-url" className="photo" />
+
+              <button onClick={handleLogOut}>Log-out</button>
+            </div>
           ) : (
-            <button className="log-out" onClick={logOut}>
-              Sign Out
-            </button>
+            ""
           )}
         </div>
       </div>
@@ -110,6 +117,7 @@ const NoteContainer = () => {
             text={doc.text}
             handleUpdate={() => handleUpdate(doc.id)}
             handleDel={() => handleDelete(doc.id)}
+            color={color}
           />
         ))}
       </div>

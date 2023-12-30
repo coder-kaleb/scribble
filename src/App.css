@@ -89,9 +89,13 @@ main section {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  /* background-color: var(--black-color); */
   margin-bottom: 0.9rem;
   cursor: pointer;
+  transition: transform .4s;
+}
+
+.color-container li:hover {
+  transform: scale(1.1);
 }
 
 .color-container li[data-color="yellow"] {
@@ -109,6 +113,10 @@ main section {
 .color-container li[data-color="green"] {
   background-color: var(--green-color);
 }
+.color-container li[data-color="transparent"] {
+  background-color: transparent;
+  border: 1px solid gray;
+}
 
 /* ----------RIGHT SIDE----------- */
 
@@ -119,13 +127,10 @@ main section {
   gap: 3.4rem;
 }
 
-
-
 /* ----------TEXT-AREA---------- */
 
 .txt-btn-wrapper {
   display: flex;
-
 }
 
 .write-container {
@@ -143,7 +148,7 @@ main section {
   resize: vertical;
   width: 600px;
   outline: none;
-  padding: .7rem 1rem;
+  padding: 0.7rem 1rem;
   font-size: 1rem;
   border-radius: 7px;
 }
@@ -152,13 +157,15 @@ main section {
   border: none;
   outline: none;
   color: #fff;
-  padding: .8rem 1.2rem;
+  padding: 0.8rem 1.2rem;
   border-radius: 5px;
   cursor: pointer;
-  font-size: .9rem;
-  transition: all .5s;
+  font-size: 0.9rem;
+  transition: all 0.5s;
 }
-
+.btn-cont button:hover {
+  transform: scale(1.1);
+}
 
 /* ------------- GOOGLE BUTTON */
 .signIn-container {
@@ -172,21 +179,39 @@ main section {
   border: none;
   outline: none;
   color: #fff;
-  padding: .8rem 1.2rem;
+  padding: 0.8rem 1.2rem;
   border-radius: 5px;
   cursor: pointer;
-  font-size: .9rem;
-
+  font-size: 0.9rem;
 }
 
-/* ----------PHOTO-IMG */
+/* ----------PHOTO-IMG- AND ----BUTTON */
+.img-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.img-btn button {
+  background-color: var(--black-color);
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.5s;
+}
+.img-btn button:hover {
+  transform: scale(1.1);
+}
+
 .photo {
   width: 53px;
   height: 53px;
   border-radius: 50%;
+  cursor: pointer;
 }
-
-
 
 /* ----------NOTE CONTAINER */
 .note-container {
@@ -197,14 +222,33 @@ main section {
 
 /* ----------NOTE DIV------ */
 .note {
-  background-color: var(--orange-color);
+  /* background-color: var(--orange-color); */
+  border: 1px solid rgb(209, 209, 209);
   max-width: 300px;
   padding: 1.5rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  transition: all .5s;
+  transition: background-color 0.5s, border .4s;
+}
+.note:hover {
+  border-color: #999999;
+}
+.note[data-color="yellow"] {
+  background-color: var(--yellow-color);
+}
+.note[data-color="blue"] {
+  background-color: var(--blue-color);
+}
+.note[data-color="purple"] {
+  background-color: var(--purple-color);
+}
+.note[data-color="orange"] {
+  background-color: var(--orange-color);
+}
+.note[data-color="green"] {
+  background-color: var(--green-color);
 }
 .text {
   font-size: 1.1rem;
