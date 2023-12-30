@@ -39,7 +39,7 @@ function App() {
           </div>
 
           <ul
-            className={`color-container ${open ? "opened" : ""}`}
+            className={`color-container ${!open ? "opened" : ""}`}
             onClick={handleColor}
           >
             <li data-color="yellow"></li>

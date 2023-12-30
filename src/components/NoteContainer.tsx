@@ -21,7 +21,7 @@ const NoteContainer = ({ color }) => {
   const [note, setNote] = useState("");
   const [update, setUpdate] = useState<boolean>(false);
   const [docRef, setDocRef] = useState<DocumentReference>();
-
+  // console.log(user.uid)
   useEffect(() => {
     // Note fetch
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -52,6 +52,7 @@ const NoteContainer = ({ color }) => {
         await addDoc(colRef, {
           text: note,
           timestamp: serverTimestamp(),
+          userId: user?.uid
         });
         setNote("");
       } catch (error) {
@@ -60,8 +61,8 @@ const NoteContainer = ({ color }) => {
     }
   };
   //   * SIGN OUT
-  const logOut = () => {
-    signOut(auth);
+  const logOut = async () => {
+    await signOut(auth);
   };
 
   const handleUpdate = async (docId: string) => {
