@@ -5,7 +5,6 @@ import { auth, colRef, db} from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   DocumentData,
-  DocumentReference,
   addDoc,
   deleteDoc,
   doc,
@@ -20,11 +19,10 @@ import {
 
 const NoteContainer = ({ color }: { color: string }) => {
   const [user] = useAuthState(auth);
-  const [fetchedNote, setFetchedNote] = useState<Document[]>([]);
+  const [fetchedNote, setFetchedNote] = useState<any[]>([]);
   const [note, setNote] = useState("");
   const [update, setUpdate] = useState<boolean>(false);
-  const [docRef, setDocRef] = useState<DocumentReference>();
-  const [error, setError] = useState(null)
+  const [docRef, setDocRef] = useState<any>();
 
   // * QUERY
   const q = query(
@@ -72,14 +70,11 @@ const NoteContainer = ({ color }: { color: string }) => {
         });
         setNote("");
       } catch (error) {
-        setError(error)
+        console.log(error)
       }
     }
   };
-  //   * SIGN OUT
-  const logOut = async () => {
-    await signOut(auth);
-  };
+  
 
   const handleUpdate = async (docId: string) => {
     const ref = doc(db, "note", docId);

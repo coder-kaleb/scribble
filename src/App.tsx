@@ -10,19 +10,19 @@ function App() {
   const [open, setOpen] = useState<boolean>(false);
   const [user] = useAuthState(auth);
   const [color, setColor] = useState("");
-  const [error, setError] = useState<Error | unknown>()
+  
   const signIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
       
     } catch (error) {
-      setError(error)
+      console.log(error)
     }
   };
 
   // * handle-----color---------
-  const handleColor = (e) => {
+  const handleColor = (e: any) => {
     setColor(e.target.dataset.color);
   };
   return (
