@@ -6,12 +6,12 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyALt3O9XjU7BZDds9Pux9uyL3qhCUHwxyo",
-  authDomain: "scribble-1afff.firebaseapp.com",
-  projectId: "scribble-1afff",
-  storageBucket: "scribble-1afff.appspot.com",
-  messagingSenderId: "202050640337",
-  appId: "1:202050640337:web:aa01e85426fd59a6d168f0",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
