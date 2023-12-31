@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Note from "./Note";
 import { signOut } from "firebase/auth";
-import { auth, colRef, db, q } from "../config/firebase";
+import { auth, colRef, db} from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   DocumentData,
@@ -11,17 +11,28 @@ import {
   doc,
   getDoc,
   onSnapshot,
+  orderBy,
+  query,
   serverTimestamp,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
-const NoteContainer = ({ color }) => {
+const NoteContainer = ({ color }: { color: string }) => {
   const [user] = useAuthState(auth);
   const [fetchedNote, setFetchedNote] = useState<Document[]>([]);
   const [note, setNote] = useState("");
   const [update, setUpdate] = useState<boolean>(false);
   const [docRef, setDocRef] = useState<DocumentReference>();
-  // console.log(user.uid)
+  const [error, setError] = useState(null)
+
+  // * QUERY
+  const q = query(
+    colRef,
+    where("userId", "==", `${user?.uid}`),
+    orderBy("timestamp", "desc")
+  );
+
   useEffect(() => {
     // Note fetch
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -30,6 +41,7 @@ const NoteContainer = ({ color }) => {
         ...doc.data(),
       }));
       setFetchedNote(notes);
+   
     });
     return () => unsubscribe();
   }, [note]);
@@ -48,15 +60,19 @@ const NoteContainer = ({ color }) => {
       setNote("");
       setUpdate(false);
     } else {
+      if(!note){
+        alert("Enter the note")
+        return
+      }
       try {
         await addDoc(colRef, {
           text: note,
+          userId: user?.uid,
           timestamp: serverTimestamp(),
-          userId: user?.uid
         });
         setNote("");
       } catch (error) {
-        console.log(error);
+        setError(error)
       }
     }
   };

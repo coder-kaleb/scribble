@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { collection, getFirestore, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  getFirestore,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyALt3O9XjU7BZDds9Pux9uyL3qhCUHwxyo",
@@ -12,8 +15,15 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const colRef = collection(db, "note");
-export const q = query(colRef, orderBy("timestamp", "desc"));
+
+
+// let uid: string | undefined;
+// const unsub = setTimeout(() => {
+//    uid = auth?.currentUser?.uid
+//   clearTimeout(unsub);
+// }, 2000);
+// export 
+

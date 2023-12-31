@@ -10,14 +10,14 @@ function App() {
   const [open, setOpen] = useState<boolean>(false);
   const [user] = useAuthState(auth);
   const [color, setColor] = useState("");
-
+  const [error, setError] = useState<Error | unknown>()
   const signIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      console.log(user);
+      
     } catch (error) {
-      console.log(error);
+      setError(error)
     }
   };
 

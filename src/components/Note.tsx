@@ -11,7 +11,8 @@ interface Data {
 const Note = ({ text, handleUpdate, handleDel, color }: Data) => {
   return (
     <div className="note" data-color={color}>
-      <p className="text">{text}</p>
+      <p className="text">{text} </p>
+      
       <div className="text-info">
         <GiPencil className="pen" onClick={handleUpdate} />
         <GoTrash className="trash" onClick={handleDel} />
